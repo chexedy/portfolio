@@ -1,3 +1,108 @@
-:root {}
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
 
-:root[data-theme="dark"] {}
+/* CSS Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        interpolate-size: allow-keywords;
+    }
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+#root,
+#__next {
+    isolation: isolate;
+}
+
+/* Fonts */
+.oxygen-light {
+    font-family: "Oxygen", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.oxygen-regular {
+    font-family: "Oxygen", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.oxygen-bold {
+    font-family: "Oxygen", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    font-family: "Oxygen";
+}
+
+/* Site Colors */
+:root {
+    --primary: rgb(255, 117, 26);
+    --secondary: rgb(255, 239, 224);
+    --accent: rgb(255, 200, 133);
+    --text-color: rgb(4, 3, 22);
+    --background: rgb(251, 251, 254);
+    --alwayswhite: rgb(251, 251, 254);
+}
+
+:root[data-theme="dark"] {
+    --primary: rgb(230, 92, 0);
+    --secondary: rgb(31, 15, 0);
+    --accent: rgb(47, 23, 0);
+    --text-color: rgb(251, 251, 254);
+    --background: rgb(4, 3, 22);
+}
