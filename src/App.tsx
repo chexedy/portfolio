@@ -126,7 +126,7 @@ P.S. Hire me I'm desperate : (
   }, []);
 
   useEffect(() => {
-    const helloFullText = "hello : ) i'm";
+    const helloFullText = "hey! my name is";
     const nameFullText = "AYAAN";
     let helloIndex = 0;
     let nameIndex = 0;
@@ -155,7 +155,7 @@ P.S. Hire me I'm desperate : (
   }, []);
 
   useEffect(() => {
-    const names = ['AYAAN', 'AYAAN7M', 'CHEXEDY'];
+    const names = ['AYAAN', 'CHEXEDY'];
     let currentIndex = 0;
     let rotationInterval: number | null = null;
 
