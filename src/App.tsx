@@ -1,12 +1,61 @@
-import { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, ExternalLink, ChevronDown, Code2, Briefcase } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Github, Linkedin, MessageSquare, ExternalLink, ChevronDown, Code2, Briefcase } from 'lucide-react';
+
+const generateStars = (count: number) => {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    top: Math.random() * 100,
+    size: Math.random() * 2 + 1,
+    duration: Math.random() * 3 + 2,
+    delay: Math.random() * 2
+  }));
+};
+
+const stars = generateStars(100);
 
 function App() {
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [helloText, setHelloText] = useState('');
+  const [nameText, setNameText] = useState('');
+  const [displayName, setDisplayName] = useState('');
+  const [isGlitching, setIsGlitching] = useState(false);
+  const [showSubtitle, setShowSubtitle] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const aboutRef = useRef<HTMLElement>(null);
+  const experienceRef = useRef<HTMLElement>(null);
+  const projectsRef = useRef<HTMLElement>(null);
+  const contactRef = useRef<HTMLElement>(null);
+
+  const [aboutVisible, setAboutVisible] = useState(false);
+  const [experienceVisible, setExperienceVisible] = useState(false);
+  const [projectsVisible, setProjectsVisible] = useState(false);
+  const [contactVisible, setContactVisible] = useState(false);
+
+  const smoothScrollTo = (elementRef: React.RefObject<HTMLElement | null>) => {
+    elementRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrollY(currentScrollY);
+      setShowScrollTop(currentScrollY > 500);
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -20,11 +69,104 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const helloFullText = "hello : ) i'm";
+    const nameFullText = "AYAAN";
+    let helloIndex = 0;
+    let nameIndex = 0;
+
+    const helloInterval = setInterval(() => {
+      if (helloIndex < helloFullText.length) {
+        setHelloText(helloFullText.slice(0, helloIndex + 1));
+        helloIndex++;
+      } else {
+        clearInterval(helloInterval);
+        const nameInterval = setInterval(() => {
+          if (nameIndex < nameFullText.length) {
+            setNameText(nameFullText.slice(0, nameIndex + 1));
+            nameIndex++;
+          } else {
+            clearInterval(nameInterval);
+            setDisplayName(nameFullText);
+            setTimeout(() => setShowSubtitle(true), 200);
+            setTimeout(() => setShowButtons(true), 400);
+          }
+        }, 100);
+      }
+    }, 80);
+
+    return () => clearInterval(helloInterval);
+  }, []);
+
+  useEffect(() => {
+    const names = ['AYAAN', 'AYAAN7M', 'CHEXEDY'];
+    let currentIndex = 0;
+    let rotationInterval: number | null = null;
+
+    const glitchOnce = (finalName: string) => {
+      setIsGlitching(true);
+
+      let flickers = 0;
+      const maxFlickers = 6;
+
+      const glitchInterval = window.setInterval(() => {
+        if (flickers < maxFlickers) {
+          setDisplayName(names[Math.floor(Math.random() * names.length)]);
+          flickers++;
+        } else {
+          clearInterval(glitchInterval);
+          setDisplayName(finalName);
+          setIsGlitching(false);
+        }
+      }, 50);
+    };
+
+    const initialTimeout = window.setTimeout(() => {
+      glitchOnce('AYAAN');
+
+      window.setTimeout(() => {
+        rotationInterval = window.setInterval(() => {
+          currentIndex = (currentIndex + 1) % names.length;
+          glitchOnce(names[currentIndex]);
+        }, 5000);
+      }, 400);
+    }, 3000);
+
+    return () => {
+      clearTimeout(initialTimeout);
+      if (rotationInterval) clearInterval(rotationInterval);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleScrollAnimation = () => {
+      const scrollPos = window.scrollY + window.innerHeight;
+
+      if (aboutRef.current && scrollPos > aboutRef.current.offsetTop + 100) {
+        setAboutVisible(true);
+      }
+      if (experienceRef.current && scrollPos > experienceRef.current.offsetTop + 100) {
+        setExperienceVisible(true);
+      }
+      if (projectsRef.current && scrollPos > projectsRef.current.offsetTop + 100) {
+        setProjectsVisible(true);
+      }
+      if (contactRef.current && scrollPos > contactRef.current.offsetTop + 100) {
+        setContactVisible(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScrollAnimation);
+    handleScrollAnimation();
+
+    return () => window.removeEventListener('scroll', handleScrollAnimation);
+  }, []);
+
   const projects = [
     {
       title: "Where Is NJ Transit?",
       description: "Full-stack live train tracking application serving 2,500+ unique visitors with real-time NJ Transit location visualization. Automated 1,440+ daily data ingestions maintaining 60-second location accuracy across the entire rail network.",
-      tech: ["JavaScript", "Cloudflare Workers", "SQL", "REST APIs"],
+      tech: ["JavaScript", "Cloudflare", "SQL", "REST APIs"],
       image: "images/transit.png",
       link: "https://transit.chexedy.com/"
     },
@@ -38,16 +180,15 @@ function App() {
     {
       title: "RU Water Fountains",
       description: "Campus resource tool achieving sub-100ms response times with TypeScript-based React frontend deployed on Cloudflare Workers. Features scalable crowdsourced data pipeline and mobile-first responsive UI for students navigating between campuses.",
-      tech: ["TypeScript", "React", "SQL", "Cloudflare Workers"],
+      tech: ["TypeScript", "React", "SQL", "Cloudflare"],
       image: "images/fountains.png",
       link: "https://fountains.chexedy.com/"
     }
   ];
 
   const skills = {
-    languages: ["Java", "Python", "C", "C++", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"],
-    frameworks: ["React", "Node.js", "Git", "AWS", "Cloudflare Workers", "SQLite", "REST APIs"],
-    focus: ["Full-Stack Development", "Real-Time Systems", "Databases", "UI/UX Implementation"]
+    languages: ["Java", "Python", "C", "C++", "Lua", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"],
+    frameworks: ["React", "Node.js", "Git", "AWS", "Cloudflare Workers", "REST APIs"],
   };
 
   const experience = [
@@ -79,6 +220,22 @@ function App() {
       <div className="fixed inset-0 z-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-zinc-950 to-black" />
 
+        {stars.map((star) => (
+          <div
+            key={star.id}
+            className="absolute rounded-full bg-white animate-pulse"
+            style={{
+              left: `${star.left}%`,
+              top: `${star.top}%`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              animationDuration: `${star.duration}s`,
+              animationDelay: `${star.delay}s`,
+              opacity: 0.4 + Math.random() * 0.4
+            }}
+          />
+        ))}
+
         <div
           className="absolute inset-0 opacity-40"
           style={{
@@ -86,18 +243,14 @@ function App() {
           }}
         />
 
-        <div
-          className="absolute bottom-0 w-full h-96"
-        >
+        <div className="absolute bottom-0 w-full h-96">
           <div className="absolute bottom-0 left-0 w-32 h-64 bg-zinc-900 opacity-60" style={{ clipPath: 'polygon(10% 0%, 90% 0%, 85% 100%, 15% 100%)' }} />
           <div className="absolute bottom-0 left-24 w-24 h-48 bg-zinc-900 opacity-50" style={{ clipPath: 'polygon(5% 0%, 95% 0%, 90% 100%, 10% 100%)' }} />
           <div className="absolute bottom-0 left-40 w-40 h-72 bg-zinc-900 opacity-70" style={{ clipPath: 'polygon(8% 0%, 92% 0%, 88% 100%, 12% 100%)' }} />
           <div className="absolute bottom-0 left-72 w-28 h-56 bg-zinc-900 opacity-55" style={{ clipPath: 'polygon(12% 0%, 88% 0%, 85% 100%, 15% 100%)' }} />
         </div>
 
-        <div
-          className="absolute bottom-0 w-full h-screen"
-        >
+        <div className="absolute bottom-0 w-full h-screen">
           <div className="absolute bottom-0 right-96 w-48 h-96 bg-zinc-800 opacity-80 shadow-2xl" style={{ clipPath: 'polygon(5% 0%, 95% 0%, 92% 100%, 8% 100%)' }}>
             <div className="absolute top-10 left-4 w-2 h-2 bg-amber-400 opacity-60 animate-pulse" />
             <div className="absolute top-20 left-8 w-2 h-2 bg-amber-400 opacity-50" />
@@ -119,9 +272,7 @@ function App() {
           </div>
         </div>
 
-        <div
-          className="absolute bottom-0 w-full h-screen"
-        >
+        <div className="absolute bottom-0 w-full h-screen">
           <div className="absolute bottom-0 left-1/4 w-72 h-screen bg-zinc-900 shadow-2xl" style={{ clipPath: 'polygon(12% 0%, 88% 0%, 85% 100%, 15% 100%)' }}>
             <div className="absolute top-32 left-16 w-3 h-3 bg-amber-500 opacity-80 animate-pulse" />
             <div className="absolute top-48 left-20 w-3 h-3 bg-amber-500 opacity-60" />
@@ -143,22 +294,136 @@ function App() {
       <div className="relative z-10">
         <section id="hero" className="min-h-screen flex items-center justify-center px-6 relative">
           <div className="max-w-7xl mx-auto w-full">
-            <div className="mb-8 text-zinc-500 lowercase tracking-[0.4em] text-xs font-semibold">CS Student • Software Developer</div>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black mb-6 sm:mb-8 tracking-tighter leading-none">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-400 leading-relaxed max-w-4xl font-light mb-2">
+              {helloText}
+              {helloText && helloText.length < "hello : ) i'm".length && <span className="animate-pulse">|</span>}
+            </p>
+            <h1
+              onMouseEnter={() => setIsGlitching(false)}
+              className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black mb-6 sm:mb-8 tracking-tighter leading-none relative ${isGlitching ? 'glitch-active' : ''
+                }`}
+            >
+              <style>{`
+                .glitch-active {
+                  animation: glitch-shake 0.3s infinite;
+                }
+                
+                .glitch-active::before {
+                  content: '${displayName}';
+                  position: absolute;
+                  top: 0;
+                  left: 2px;
+                  width: 100%;
+                  height: 100%;
+                  background: linear-gradient(to bottom, #ffffff, #888888);
+                  -webkit-background-clip: text;
+                  -webkit-text-fill-color: transparent;
+                  background-clip: text;
+                  opacity: 0.8;
+                  animation: glitch-left 0.15s infinite;
+                }
+                
+                .glitch-active::after {
+                  content: '${displayName}';
+                  position: absolute;
+                  top: 0;
+                  left: -2px;
+                  width: 100%;
+                  height: 100%;
+                  background: linear-gradient(to bottom, #ffffff, #888888);
+                  -webkit-background-clip: text;
+                  -webkit-text-fill-color: transparent;
+                  background-clip: text;
+                  opacity: 0.8;
+                  animation: glitch-right 0.15s infinite;
+                }
+                
+                @keyframes glitch-shake {
+                  0% { transform: translate(0); }
+                  20% { transform: translate(-1px, 1px); }
+                  40% { transform: translate(1px, -1px); }
+                  60% { transform: translate(-1px, -1px); }
+                  80% { transform: translate(1px, 1px); }
+                  100% { transform: translate(0); }
+                }
+                
+                @keyframes glitch-left {
+                  0% { 
+                    clip-path: inset(40% 0 61% 0);
+                    transform: translate(-3px, 0);
+                  }
+                  20% {
+                    clip-path: inset(92% 0 1% 0);
+                    transform: translate(3px, 0);
+                  }
+                  40% {
+                    clip-path: inset(43% 0 1% 0);
+                    transform: translate(-3px, 0);
+                  }
+                  60% {
+                    clip-path: inset(25% 0 58% 0);
+                    transform: translate(3px, 0);
+                  }
+                  80% {
+                    clip-path: inset(54% 0 7% 0);
+                    transform: translate(-3px, 0);
+                  }
+                  100% {
+                    clip-path: inset(58% 0 43% 0);
+                    transform: translate(0);
+                  }
+                }
+                
+                @keyframes glitch-right {
+                  0% { 
+                    clip-path: inset(25% 0 58% 0);
+                    transform: translate(3px, 0);
+                  }
+                  20% {
+                    clip-path: inset(54% 0 7% 0);
+                    transform: translate(-3px, 0);
+                  }
+                  40% {
+                    clip-path: inset(58% 0 43% 0);
+                    transform: translate(3px, 0);
+                  }
+                  60% {
+                    clip-path: inset(40% 0 61% 0);
+                    transform: translate(-3px, 0);
+                  }
+                  80% {
+                    clip-path: inset(92% 0 1% 0);
+                    transform: translate(3px, 0);
+                  }
+                  100% {
+                    clip-path: inset(43% 0 1% 0);
+                    transform: translate(0);
+                  }
+                }
+              `}</style>
               <span className="bg-gradient-to-b from-zinc-100 to-zinc-500 bg-clip-text text-transparent">
-                AYAAN M
+                {displayName || nameText}
+                {nameText && nameText.length < "AYAAN".length && <span className="animate-pulse text-zinc-100">|</span>}
               </span>
             </h1>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-400 mb-10 sm:mb-12 md:mb-16 leading-relaxed max-w-4xl font-light">
-              Building scalable systems and applications with real-world impact. Looking for an internship to gain hands-on experience and advice.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
-              <a href="#projects" className="px-8 sm:px-10 py-4 sm:py-5 bg-zinc-100 text-black hover:bg-zinc-300 transition-all duration-300 uppercase tracking-widest text-sm font-bold shadow-2xl text-center">
+            <div
+              className={`mb-8 text-zinc-500 lowercase tracking-[0.4em] text-xs font-semibold transition-opacity duration-500 ${showSubtitle ? 'opacity-100' : 'opacity-0'}`}
+            >
+              CS Student • Software Developer • LeetCode Victim
+            </div>
+            <div className={`flex flex-col sm:flex-row gap-4 sm:gap-8 transition-opacity duration-500 ${showButtons ? 'opacity-100' : 'opacity-0'}`}>
+              <button
+                onClick={() => smoothScrollTo(projectsRef)}
+                className="px-8 sm:px-10 py-4 sm:py-5 bg-zinc-100 text-black hover:bg-zinc-300 transition-all duration-300 uppercase tracking-widest text-sm font-bold shadow-2xl text-center cursor-pointer"
+              >
                 View Projects
-              </a>
-              <a href="#contact" className="px-8 sm:px-10 py-4 sm:py-5 border-2 border-zinc-100 hover:bg-zinc-100 hover:text-black transition-all duration-300 uppercase tracking-widest text-sm font-bold text-center">
+              </button>
+              <button
+                onClick={() => smoothScrollTo(contactRef)}
+                className="px-8 sm:px-10 py-4 sm:py-5 border-2 border-zinc-100 hover:bg-zinc-100 hover:text-black transition-all duration-300 uppercase tracking-widest text-sm font-bold text-center cursor-pointer"
+              >
                 Contact
-              </a>
+              </button>
             </div>
           </div>
           <div className="absolute bottom-16 left-1/2 -translate-x-1/2 animate-bounce">
@@ -166,7 +431,12 @@ function App() {
           </div>
         </section>
 
-        <section id="about" className="min-h-screen py-20 sm:py-24 md:py-32 px-6 bg-black/60 backdrop-blur-sm">
+        <section
+          ref={aboutRef}
+          id="about"
+          className={`min-h-screen py-20 sm:py-24 md:py-32 px-6 bg-black/60 backdrop-blur-sm transition-all duration-1000 ${aboutVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+            }`}
+        >
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-12 sm:mb-16 md:mb-20 tracking-tighter">
               <span className="text-zinc-700 font-mono">01.</span> ABOUT
@@ -174,10 +444,7 @@ function App() {
             <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20">
               <div className="space-y-6 md:space-y-8">
                 <p className="text-zinc-400 text-base md:text-lg lg:text-xl leading-relaxed font-light">
-                  Computer Science student at Rutgers University focused on systems, data, and practical software.
-                </p>
-                <p className="text-zinc-400 text-base md:text-lg lg:text-xl leading-relaxed font-light">
-                  I build full-stack projects, experiment with real-time systems, and learn by shipping.
+                  Undergraduate CS student building full-stack applications and data-driven tools with real-time functionality. Passionate about AI, machine learning, and intelligent systems to create smarter, more impactful applications. In my free time, I like playing around with game development and design.
                 </p>
 
                 <div className="flex flex-col gap-4 pt-4">
@@ -210,7 +477,7 @@ function App() {
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-semibold text-zinc-500 mb-3 tracking-wider">FRAMEWORKS & TOOLS</h4>
+                    <h4 className="text-sm font-semibold text-zinc-500 mb-3 tracking-wider">FRAMEWORKS / TOOLS</h4>
                     <div className="flex flex-wrap gap-3">
                       {skills.frameworks.map((skill) => (
                         <span
@@ -228,7 +495,12 @@ function App() {
           </div>
         </section>
 
-        <section id="experience" className="py-20 sm:py-24 md:py-32 px-6 bg-black/40 backdrop-blur-sm">
+        <section
+          ref={experienceRef}
+          id="experience"
+          className={`py-20 sm:py-24 md:py-32 px-6 bg-black/40 backdrop-blur-sm transition-all duration-1000 ${experienceVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+            }`}
+        >
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-12 sm:mb-16 md:mb-20 tracking-tighter">
               <span className="text-zinc-700 font-mono">02.</span> EXPERIENCE
@@ -261,7 +533,12 @@ function App() {
           </div>
         </section>
 
-        <section id="projects" className="min-h-screen py-20 sm:py-24 md:py-32 px-6">
+        <section
+          ref={projectsRef}
+          id="projects"
+          className={`min-h-screen py-20 sm:py-24 md:py-32 px-6 transition-all duration-1000 ${projectsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+            }`}
+        >
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-12 sm:mb-16 md:mb-20 tracking-tighter">
               <span className="text-zinc-700 font-mono">03.</span> PROJECTS
@@ -311,44 +588,80 @@ function App() {
           </div>
         </section>
 
-        <section id="contact" className="min-h-screen py-20 sm:py-24 md:py-32 px-6 flex items-center bg-black/60 backdrop-blur-sm">
-          <div className="max-w-4xl mx-auto w-full text-center">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-8 sm:mb-10 md:mb-12 tracking-tighter">
+        <section
+          ref={contactRef}
+          id="contact"
+          className={`min-h-screen py-20 sm:py-24 md:py-32 px-6 bg-black/60 backdrop-blur-sm transition-all duration-1000 ${contactVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+            }`}
+        >
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-12 sm:mb-16 md:mb-20 tracking-tighter">
               <span className="text-zinc-700 font-mono">04.</span> CONTACT
             </h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-zinc-400 mb-12 sm:mb-14 md:mb-16 max-w-2xl mx-auto font-light leading-relaxed">
-              Looking for internships, collaborations, or just want to connect? Let's build something together.
-            </p>
-            <div className="flex gap-6 justify-center mb-16">
-              {[
-                { Icon: Github, href: "https://github.com/chexedy", label: "Github" },
-                { Icon: Linkedin, href: "https://linkedin.com/in/ayaan7m", label: "LinkedIn" },
-                { Icon: Mail, href: "mailto:am3990@rutgers.edu", label: "Email" }
-              ].map(({ Icon, href, label }, idx) => (
-                <a
-                  key={idx}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-16 h-16 border-2 border-zinc-700 hover:border-zinc-300 hover:bg-zinc-900/50 flex items-center justify-center transition-all backdrop-blur-sm group"
-                  aria-label={label}
-                >
-                  <Icon className="w-7 h-7 text-zinc-600 group-hover:text-zinc-300 transition-colors" />
-                </a>
-              ))}
+
+            <div className="grid md:grid-cols-2 gap-16">
+              <div className="space-y-6">
+                <p className="text-zinc-400 text-lg md:text-xl leading-relaxed font-light max-w-xl">
+                  You can contact me through any of the platforms below. I'm always open to discussing new projects, opportunities, or just connecting with like-minded individuals.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                {[
+                  {
+                    Icon: Linkedin,
+                    label: 'LinkedIn',
+                    value: 'linkedin.com/in/ayaan7m',
+                    href: 'https://linkedin.com/in/ayaan7m',
+                  },
+                  {
+                    Icon: Github,
+                    label: 'GitHub',
+                    value: 'github.com/chexedy',
+                    href: 'https://github.com/chexedy',
+                  },
+                  {
+                    Icon: MessageSquare,
+                    label: 'Discord',
+                    value: 'discord.com/users/chexedy',
+                    href: 'https://discord.com/users/1089029798745079918',
+                  }
+                ].map(({ Icon, label, value, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 border border-zinc-800 hover:border-zinc-400 bg-black/70 px-6 py-4 transition-all group"
+                  >
+                    <Icon className="w-6 h-6 text-zinc-600 group-hover:text-zinc-300 transition-colors" />
+                    <div className="flex flex-col">
+                      <span className="text-xs font-mono uppercase tracking-wider text-zinc-500">
+                        {label}
+                      </span>
+                      <span className="text-zinc-300 font-mono">
+                        {value}
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
-            <a
-              href="mailto:am3990@rutgers.edu"
-              className="inline-block text-xl text-zinc-500 hover:text-zinc-300 transition-colors font-mono"
-            >
-              am3990@rutgers.edu
-            </a>
           </div>
         </section>
 
         <footer className="border-t border-zinc-900 py-12 px-6 text-center text-zinc-700 bg-black/80 backdrop-blur-sm">
           <p className="text-sm font-mono tracking-wider">© 2026 chexedy incorporated (Real) | Built with React, TypeScript & Tailwind CSS</p>
         </footer>
+
+        <button
+          onClick={scrollToTop}
+          className={`cursor-pointer fixed bottom-8 right-8 w-12 h-12 bg-zinc-100 hover:bg-zinc-300 text-black rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 z-50 ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+            }`}
+          aria-label="Scroll to top"
+        >
+          <ChevronDown className="w-6 h-6 rotate-180" />
+        </button>
       </div>
     </div>
   );
