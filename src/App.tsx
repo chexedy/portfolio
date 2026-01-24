@@ -35,6 +35,62 @@ function App() {
   const [projectsVisible, setProjectsVisible] = useState(false);
   const [contactVisible, setContactVisible] = useState(false);
 
+  const hasLogged = useRef(false);
+
+  useEffect(() => {
+    if (hasLogged.current) return; // skip second run
+    hasLogged.current = true;
+
+    const asciiArt = `
+  Here's Funky Kong as a gift for inspecting my code:
+
+                                                        :=**%%%%%%###%%%%%
+                                                         :=+**######%%%%%%
+                                                          ::-=++*****#%%%%
+                                                            :::-==++****#*
+                                  :=**+::::::::              +:::-==+++**+
+                             ::::%@@@@@*:::::::::=+          ::::-=++++=++
+                           ::::::::-::::::::**=:::-==          :::---=====
+                          -@@-::::::::::::=#****=:::::         =:::--=====
+                         *@@*:=%@@@@%#*+++++=====-:::::         :::-======
+                       ::##::%@@@@@@@@@@%*+++========+##*=      ::--======
+                       ::::=*%+*%@@@@@@@@@@%%#**+++*#***+=:      ::-======
+                      =:-=+++%%+-+#%%@@@@@%#*====+*****==::      :::-=====
+            =:::::%@@@=====--::-=*%@@@@@@@#*+==-:::::....:-      ..::----=
+         =@@@@%::::::::=::::::-+*%@@@@@@@%**+===:::::... :.       :.:::::-
+       :::%%%%%%-:::%@@%=::::-+##@@@@@@@%#**++=-:::::......:    ==========
+         ::%@@@+:::#*+=#@#::.=##%@@@@@@%%#@@@**%*%@@@%*: ..=  -==++++=+++=
+            :::::::#*+==%@%==-=%@@@@@@%%@@@@@@@%#%%@*===...======+++++++++
+                   %*+++=%@*===-:=%%@@@@@@@@@@@@%%%%#****:.==++++++++++++=
+                   *%**==+%%=--*%%@@@@@@@@@@@@@@@%%%%#****+===+=++=++==+=+
+                    +*##**#%##%%@@@@@@@@@@@@@@@@@%%%%##***+=-=============
+               #%#======#@@@@@%%%%%@@@@@@@@@@@@%%%%%%#*****+-::-==========
+   *+++==+=+==%%@@%+=++#%%%%%%%%%@@@@@@%%%%#****++++++++++++=-::--========
+==+++++++++++==%@@@@==*###**%%%%%#*+=--==========+=====---:::::::-----====
+++++++++++++++=+@@@@@=**##*--:--+*+%@%*@@@#@@@%%%%*=====--:-:.::::::------
++++++++++++++++=%@@@@***#%%*#**=+**%%%%@@@@@@@%@@@@##%*=:-:--:::::::::::::
++++++++++++++++=+@@@@%**%%%@%%@%@@@@@@@@@%@@%%%%%%%#%%%**=::::::::::::::::
++++++++++++++++==%@@@@***%%%#**##%%%%%%%%%%%%%%%%%%%%#***++=-::.:::::::::.
++++++++++++=+++==*@@@@%++**###**+++++++++======--------:::::::::..::.:::::
++++++++=+++=======@@@@@*=++************+++===-::::::::::-:-----::.....::::
+=================:@@@@@@#-==+++*********++++++++===--:-::----==-:....::::
+=========---------%@@@@@@%=:-===================--::::::-:-:====-....:
+----::::::::::::=+%@@@@@@@@%=:.::::---------:::::::::::-:--=====-:..
+:::::::::::::::-*%%@@@@@@@@@@#==:....:::::::::::::::::--=========-::
+-----:::::::.::=%#@@@@@@@@@@@@@*====:::::::::::::::-=============-:
+======-::::...:+**@@@@@@@@@@@@@@@*===============================--
+====---:::.::.:-=%@@@@@@@@@@@@@@@@%+=============================--
+===--:::::..::.:*#%@@@@@@@@@@@@@@@@@#+===========================--
+-:::::::::..::::-+*#%@@@@@@@@@@@@@@@@%*========-================---
+::::..::   :::::::=+*#%%%@@@@%%%%%##**+==---===-::----------=----:
+===:::      :::::::::-==+****++====-------=======-::::-:-----::-
+
+P.S. Hire me I'm desperate : (
+  `;
+
+    console.log('%c' + asciiArt, 'font-family: monospace; font-size: 12px;');
+  }, []);
+
   const smoothScrollTo = (elementRef: React.RefObject<HTMLElement | null>) => {
     elementRef.current?.scrollIntoView({
       behavior: 'smooth',
@@ -165,25 +221,26 @@ function App() {
   const projects = [
     {
       title: "Where Is NJ Transit?",
-      description: "Full-stack live train tracking application serving 2,500+ unique visitors with real-time NJ Transit location visualization. Automated 1,440+ daily data ingestions maintaining 60-second location accuracy across the entire rail network.",
+      description: "A live NJ Transit rail map with real-time location visualization and station departure information. Automated 1,440+ daily data ingestions maintaining 60-second location accuracy across the entire rail network.",
       tech: ["JavaScript", "Cloudflare", "SQL", "REST APIs"],
       image: "images/transit.png",
       link: "https://transit.chexedy.com/"
     },
     {
+      title: "RU Water Fountains",
+      description: "A map that displays water fountains across the Rutgers-New Brunswick campus. Rutgers students can use their ScarletMail to submit a location and description of a fountain that does not appear on the map, and the request will be reviewed and approved by a site admin. Existing foundations can be edited if they are inaccurate.",
+      tech: ["TypeScript", "React", "SQL", "Cloudflare"],
+      image: "images/fountains.png",
+      link: "https://fountains.chexedy.com/"
+    },
+    {
+
       title: "Money In DC",
       description: "WIP - A visual and educational overview of campaign finance and lobbying activity. By bridging official records with a transparent classification engine, it aims to make complex financial data accessible and understandable to everyone.",
       tech: ["Python", "TypeScript", "React", "SQL"],
       image: "images/moneyindc.png",
       link: "https://moneyindc.chexedy.com/"
     },
-    {
-      title: "RU Water Fountains",
-      description: "Campus resource tool achieving sub-100ms response times with TypeScript-based React frontend deployed on Cloudflare Workers. Features scalable crowdsourced data pipeline and mobile-first responsive UI for students navigating between campuses.",
-      tech: ["TypeScript", "React", "SQL", "Cloudflare"],
-      image: "images/fountains.png",
-      link: "https://fountains.chexedy.com/"
-    }
   ];
 
   const skills = {
@@ -192,17 +249,6 @@ function App() {
   };
 
   const experience = [
-    {
-      role: "Developer",
-      org: "Rutgers Minecraft Server",
-      date: "September 2025 – Present",
-      points: [
-        "Architected high-availability REST API with full CRUD support for 1,000+ player community",
-        "Engineered real-time event processing system handling 1,000+ daily game events",
-        "Optimized data retrieval reducing API response latency by 30% during peak traffic",
-        "Improved system reliability ensuring 99.9% uptime during server-wide events"
-      ]
-    },
     {
       role: "Project Mentor",
       org: "Creation of Games Society (COGS)",
