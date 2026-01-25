@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, MessageSquare, ExternalLink, ChevronDown, Code2, University, Briefcase } from 'lucide-react';
 
+/* You better not be looking for answers here... */
+
 const generateStars = (count: number) => {
   return Array.from({ length: count }, (_, i) => ({
     id: i,
