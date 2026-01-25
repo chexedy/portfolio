@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Github, Linkedin, MessageSquare, ExternalLink, ChevronDown, Code2, Briefcase } from 'lucide-react';
+import { Github, Linkedin, MessageSquare, ExternalLink, ChevronDown, Code2, University, Briefcase } from 'lucide-react';
 
 const generateStars = (count: number) => {
   return Array.from({ length: count }, (_, i) => ({
@@ -24,11 +24,20 @@ function App() {
   const [showSubtitle, setShowSubtitle] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [showFunky, setShowFunky] = useState(false);
+  const [funkyPhase, setFunkyPhase] = useState(0);
+  const [showBanana, setShowBanana] = useState(false);
+  const [keyBuffer, setKeyBuffer] = useState('');
 
   const aboutRef = useRef<HTMLElement>(null);
   const experienceRef = useRef<HTMLElement>(null);
   const projectsRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
+
+  const sound1Ref = useRef<HTMLAudioElement | null>(null);
+  const sound2Ref = useRef<HTMLAudioElement | null>(null);
+  const sound3Ref = useRef<HTMLAudioElement | null>(null);
+  const sound4Ref = useRef<HTMLAudioElement | null>(null);
 
   const [aboutVisible, setAboutVisible] = useState(false);
   const [experienceVisible, setExperienceVisible] = useState(false);
@@ -38,7 +47,80 @@ function App() {
   const hasLogged = useRef(false);
 
   useEffect(() => {
-    if (hasLogged.current) return; // skip second run
+    sound1Ref.current = new Audio('sounds/bahaha.mp3');
+    sound2Ref.current = new Audio('sounds/alright.mp3');
+    sound3Ref.current = new Audio('sounds/nya.mp3');
+    sound4Ref.current = new Audio('sounds/yahaha.mp3');
+  }, []);
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      const key = e.key.toLowerCase();
+      const newBuffer = (keyBuffer + key).slice(-6);
+      setKeyBuffer(newBuffer);
+
+      if (newBuffer.includes('funky') || newBuffer.includes('kong')) {
+        setShowFunky(true);
+        setFunkyPhase(1);
+        sound1Ref.current?.play();
+        setKeyBuffer('');
+      }
+    };
+
+    window.addEventListener('keypress', handleKeyPress);
+    return () => window.removeEventListener('keypress', handleKeyPress);
+  }, [keyBuffer]);
+
+  useEffect(() => {
+    if (!showFunky) return;
+
+    if (funkyPhase === 1) {
+      const timer = setTimeout(() => {
+        setFunkyPhase(2);
+        sound2Ref.current?.play();
+        setShowBanana(true);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+
+    if (funkyPhase === 2) {
+      // Trigger spin in the middle of phase 2
+      const spinTimer = setTimeout(() => {
+        setFunkyPhase(3);
+        sound3Ref.current?.play();
+      }, 1500);
+      return () => clearTimeout(spinTimer);
+    }
+
+    if (funkyPhase === 3) {
+      // Continue diagonal movement after spin
+      const continueTimer = setTimeout(() => {
+        setFunkyPhase(4);
+      }, 1000);
+      return () => clearTimeout(continueTimer);
+    }
+
+    if (funkyPhase === 4) {
+      // After diagonal is complete, trigger the final drive off
+      const driveOffTimer = setTimeout(() => {
+        setFunkyPhase(5);
+        sound4Ref.current?.play();
+      }, 1500);
+      return () => clearTimeout(driveOffTimer);
+    }
+
+    if (funkyPhase === 5) {
+      const timer = setTimeout(() => {
+        setShowFunky(false);
+        setShowBanana(false);
+        setFunkyPhase(0);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [funkyPhase, showFunky]);
+
+  useEffect(() => {
+    if (hasLogged.current) return;
     hasLogged.current = true;
 
     const asciiArt = `
@@ -84,8 +166,6 @@ function App() {
 -:::::::::..::::-+*#%@@@@@@@@@@@@@@@@%*========-================---
 ::::..::   :::::::=+*#%%%@@@@%%%%%##**+==---===-::----------=----:
 ===:::      :::::::::-==+****++====-------=======-::::-:-----::-
-
-P.S. Hire me I'm desperate : (
   `;
 
     console.log('%c' + asciiArt, 'font-family: monospace; font-size: 12px;');
@@ -223,22 +303,21 @@ P.S. Hire me I'm desperate : (
       title: "Where Is NJ Transit?",
       description: "A live NJ Transit rail map with real-time location visualization and station departure information. Automated 1,440+ daily data ingestions maintaining 60-second location accuracy across the entire rail network.",
       tech: ["JavaScript", "Cloudflare", "SQL", "REST APIs"],
-      image: "images/transit.png",
+      image: "projects/transit.png",
       link: "https://transit.chexedy.com/"
     },
     {
       title: "RU Water Fountains",
       description: "A map that displays water fountains across the Rutgers-New Brunswick campus. Rutgers students can use their ScarletMail to submit a location and description of a fountain that does not appear on the map, and the request will be reviewed and approved by a site admin. Existing foundations can be edited if they are inaccurate.",
       tech: ["TypeScript", "React", "SQL", "Cloudflare"],
-      image: "images/fountains.png",
+      image: "projects/fountains.png",
       link: "https://fountains.chexedy.com/"
     },
     {
-
       title: "Money In DC",
       description: "WIP - A visual and educational overview of campaign finance and lobbying activity. By bridging official records with a transparent classification engine, it aims to make complex financial data accessible and understandable to everyone.",
       tech: ["Python", "TypeScript", "React", "SQL"],
-      image: "images/moneyindc.png",
+      image: "projects/moneyindc.png",
       link: "https://moneyindc.chexedy.com/"
     },
   ];
@@ -263,6 +342,129 @@ P.S. Hire me I'm desperate : (
 
   return (
     <div className="min-h-screen bg-black text-zinc-100 font-sans overflow-x-hidden">
+      {showFunky && (
+        <>
+          <style>{`
+            @keyframes funky-phase1 {
+              from {
+                left: -10%;
+              }
+              to {
+                left: 100%;
+              }
+            }
+            
+            @keyframes funky-phase2-first {
+              from {
+                left: 100%;
+                top: 80%;
+              }
+              to {
+                left: 50%;
+                top: 55%;
+              }
+            }
+            
+            @keyframes funky-phase3-continue {
+              from {
+                left: 50%;
+                top: 55%;
+              }
+              to {
+                left: -10%;
+                top: 30%;
+              }
+            }
+            
+            @keyframes funky-spin {
+              from {
+                transform: translate(-50%, -50%) rotate(0deg);
+              }
+              to {
+                transform: translate(-50%, -50%) rotate(360deg);
+              }
+            }
+            
+            @keyframes funky-phase5 {
+              from {
+                left: -10%;
+                top: 30%;
+              }
+              to {
+                left: 130%;
+                top: 30%;
+              }
+            }
+            
+            @keyframes banana-drop {
+              from {
+                top: -10%;
+                opacity: 0;
+              }
+              25% {
+                opacity: 1;
+              }
+              to {
+                top: 55%;
+                opacity: 1;
+              }
+            }
+            
+            @keyframes banana-fade {
+              from {
+                opacity: 1;
+              }
+              to {
+                opacity: 0;
+              }
+            }
+          `}</style>
+
+          <div
+            className="fixed z-[9999] pointer-events-none"
+            style={{
+              width: '200px',
+              height: '200px',
+              top: funkyPhase === 1 ? '80%' : funkyPhase === 2 ? '55%' : funkyPhase === 3 ? '55%' : '30%',
+              left: funkyPhase === 1 ? '-10%' : funkyPhase === 2 ? '50%' : funkyPhase === 3 ? '50%' : funkyPhase === 4 ? '-10%' : '-10%',
+              animation:
+                funkyPhase === 1 ? 'funky-phase1 3s linear forwards' :
+                  funkyPhase === 2 ? 'funky-phase2-first 1.5s linear forwards' :
+                    funkyPhase === 3 ? 'funky-spin 1s linear forwards' :
+                      funkyPhase === 4 ? 'funky-phase3-continue 1.5s linear forwards' :
+                        funkyPhase === 5 ? 'funky-phase5 3s linear forwards' : 'none',
+              transform: `translate(-50%, -50%) ${funkyPhase === 1 || funkyPhase === 5 ? 'scaleX(-1)' : ''}`,
+            }}
+          >
+            <img
+              src="assets/funky.png"
+              alt="Funky Kong"
+              className="w-full h-full object-contain"
+            />
+          </div>
+
+          {showBanana && funkyPhase !== 4 && funkyPhase !== 5 && (
+            <div
+              className="fixed z-[9998] pointer-events-none"
+              style={{
+                width: '80px',
+                height: '80px',
+                left: '50%',
+                top: funkyPhase === 2 ? '-10%' : '55%',
+                animation: funkyPhase === 2 ? 'banana-drop 1.5s ease-out forwards' : funkyPhase === 3 ? 'banana-fade 3s ease-out forwards' : 'none',
+                transform: 'translate(-50%, -50%)',
+              }}
+            >
+              <img
+                src="assets/banana.png"
+                alt="Banana"
+                className="w-full h-full object-contain"
+              />
+            </div>
+          )}
+        </>
+      )}
+
       <div className="fixed inset-0 z-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-zinc-950 to-black" />
 
@@ -495,8 +697,12 @@ P.S. Hire me I'm desperate : (
 
                 <div className="flex flex-col gap-4 pt-4">
                   <div className="flex items-center gap-3">
+                    <University className="w-6 h-6 text-zinc-600" />
+                    <span className="text-zinc-500 font-mono text-sm">Rutgers University – New Brunswick</span>
+                  </div>
+                  <div className="flex items-center gap-3">
                     <Code2 className="w-6 h-6 text-zinc-600" />
-                    <span className="text-zinc-500 font-mono text-sm">Rutgers University – B.S. in Computer Science</span>
+                    <span className="text-zinc-500 font-mono text-sm">Bachelor of Science in Computer Science</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Briefcase className="w-6 h-6 text-zinc-600" />
@@ -693,6 +899,17 @@ P.S. Hire me I'm desperate : (
                 ))}
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="py-16 px-6 bg-black/40 backdrop-blur-sm">
+          <div className="max-w-7xl mx-auto text-center">
+            <p className="text-zinc-600 text-sm font-mono italic mb-2">
+              psst. there's an easter egg hidden, and to view it you must type out the answer to this question:
+            </p>
+            <p className="text-zinc-500 text-base font-mono">
+              who is the greatest playable mario kart character?
+            </p>
           </div>
         </section>
 
