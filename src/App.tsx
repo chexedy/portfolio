@@ -86,7 +86,6 @@ function App() {
     }
 
     if (funkyPhase === 2) {
-      // Trigger spin in the middle of phase 2
       const spinTimer = setTimeout(() => {
         setFunkyPhase(3);
         sound3Ref.current?.play();
@@ -95,7 +94,6 @@ function App() {
     }
 
     if (funkyPhase === 3) {
-      // Continue diagonal movement after spin
       const continueTimer = setTimeout(() => {
         setFunkyPhase(4);
       }, 1000);
@@ -103,7 +101,7 @@ function App() {
     }
 
     if (funkyPhase === 4) {
-      // After diagonal is complete, trigger the final drive off
+
       const driveOffTimer = setTimeout(() => {
         setFunkyPhase(5);
         sound4Ref.current?.play();
