@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Github, Linkedin, MessageSquare, ExternalLink, ChevronDown, Code2, University, Briefcase } from 'lucide-react';
+import { Github, Linkedin, MessageSquare, ExternalLink, ChevronDown, Code2, University, Briefcase, Gamepad2, Trophy, Zap } from 'lucide-react';
 
 /* You better not be looking for answers here... */
 
@@ -34,6 +34,7 @@ function App() {
   const aboutRef = useRef<HTMLElement>(null);
   const experienceRef = useRef<HTMLElement>(null);
   const projectsRef = useRef<HTMLElement>(null);
+  const gamesRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
 
   const sound1Ref = useRef<HTMLAudioElement | null>(null);
@@ -44,6 +45,7 @@ function App() {
   const [aboutVisible, setAboutVisible] = useState(false);
   const [experienceVisible, setExperienceVisible] = useState(false);
   const [projectsVisible, setProjectsVisible] = useState(false);
+  const [gamesVisible, setGamesVisible] = useState(false);
   const [contactVisible, setContactVisible] = useState(false);
 
   const hasLogged = useRef(false);
@@ -101,7 +103,6 @@ function App() {
     }
 
     if (funkyPhase === 4) {
-
       const driveOffTimer = setTimeout(() => {
         setFunkyPhase(5);
         sound4Ref.current?.play();
@@ -287,6 +288,9 @@ function App() {
       if (projectsRef.current && scrollPos > projectsRef.current.offsetTop + 100) {
         setProjectsVisible(true);
       }
+      if (gamesRef.current && scrollPos > gamesRef.current.offsetTop + 100) {
+        setGamesVisible(true);
+      }
       if (contactRef.current && scrollPos > contactRef.current.offsetTop + 100) {
         setContactVisible(true);
       }
@@ -320,6 +324,19 @@ function App() {
       image: "projects/moneyindc.png",
       link: "https://moneyindc.chexedy.com/"
     },
+  ];
+
+  const games = [
+    {
+      title: "Fishing Frenzy",
+      description: "A fast-paced two-player fishing battle where competitors race against a 60-second clock to catch the most fish. Originally developed for Rutgers COGS as a 2-4 player controller-based game, this custom version features has two-player gameplay with keyboard controls for head-to-head action.",
+      status: "Complete",
+      tech: ["Godot Engine", "GDScript", "Aseprite"],
+      features: ["2D", "Action", "Two-Player Competitive", "Local Multiplayer"],
+      image: "games/fishingfrenzy.png",
+      link: "https://chexedy.itch.io/fishing-frenzy",
+      progress: 100
+    }
   ];
 
   const skills = {
@@ -841,6 +858,123 @@ function App() {
         </section>
 
         <section
+          ref={gamesRef}
+          id="games"
+          className={`min-h-screen py-20 sm:py-24 md:py-32 px-6 transition-all duration-1000 ${gamesVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+            }`}
+        >
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-12 sm:mb-16 md:mb-20 tracking-tighter">
+              <span className="text-zinc-700 font-mono">04.</span> GAMES
+            </h2>
+
+            <p className="bg-black p-3 rounded-lg text-zinc-400 text-lg md:text-xl leading-relaxed font-light mb-12">
+              I should work on these more...
+            </p>
+
+            <div className="grid lg:grid-cols-2 gap-8">
+              {games.map((game, idx) => (
+                <a
+                  key={idx}
+                  href={game.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative overflow-hidden block"
+                  style={{
+                    animationDelay: `${idx * 200}ms`
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-zinc-500/5 via-transparent to-zinc-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl" />
+
+                  <div className="relative bg-gradient-to-br from-zinc-900/90 to-zinc-950/90 border-2 border-zinc-800 group-hover:border-zinc-500 backdrop-blur-sm transition-all duration-500 overflow-hidden">
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500">
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-500/20 to-transparent animate-pulse" style={{ height: '200%', animation: 'scan 3s linear infinite' }} />
+                    </div>
+
+                    <style>{`
+                      @keyframes scan {
+                        0% { transform: translateY(-100%); }
+                        100% { transform: translateY(100%); }
+                      }
+                    `}</style>
+
+                    <div className="relative aspect-[16/9] overflow-hidden bg-black">
+                      <div className="absolute via-transparent to-transparent z-10" />
+                      <img
+                        src={game.image}
+                        alt={game.title}
+                        className="w-full h-full group-hover:scale-110 transition-all duration-700"
+                      />
+
+                      <div className="absolute top-4 right-4 z-20 flex items-center gap-2 px-4 py-2 bg-black/80 backdrop-blur-md border border-zinc-700">
+                        <Zap className={`w-4 h-4 ${game.status === 'In Dev' ? 'text-yellow-500 animate-pulse' : 'text-yellow-500'}`} />
+                        <span className="text-xs font-mono uppercase tracking-wider text-zinc-300">{game.status}</span>
+                      </div>
+                    </div>
+
+                    <div className="p-8 relative z-20">
+                      <h3 className="text-2xl md:text-3xl font-black text-zinc-100 mb-3 group-hover:text-zinc-300 transition-colors tracking-tight">
+                        {game.title}
+                      </h3>
+
+                      <p className="text-zinc-400 text-base md:text-lg leading-relaxed mb-6 font-light">
+                        {game.description}
+                      </p>
+
+                      {game.progress > 0 && (
+                        <div className="mb-6">
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider">Development Progress</span>
+                            <span className="text-xs font-mono text-zinc-400">{game.progress}%</span>
+                          </div>
+                          <div className="h-2 bg-zinc-800 overflow-hidden">
+                            <div
+                              className="h-full bg-gradient-to-r from-zinc-500 to-zinc-400 transition-all duration-1000"
+                              style={{ width: `${game.progress}%` }}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="mb-6">
+                        <h4 className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+                          <Trophy className="w-4 h-4" />
+                          Key Features
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {game.features.map((feature) => (
+                            <span
+                              key={feature}
+                              className="px-3 py-1.5 bg-zinc-900/80 border border-zinc-700 text-zinc-400 text-xs font-mono hover:border-zinc-500 hover:bg-zinc-800/80 transition-all"
+                            >
+                              {feature}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-3">Tech Stack</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {game.tech.map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-3 py-1.5 bg-black/60 border border-zinc-700 text-zinc-400 text-xs font-mono uppercase tracking-wider hover:border-zinc-500 hover:text-zinc-300 transition-all"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
           ref={contactRef}
           id="contact"
           className={`min-h-screen py-20 sm:py-24 md:py-32 px-6 bg-black/60 backdrop-blur-sm transition-all duration-1000 ${contactVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
@@ -848,7 +982,7 @@ function App() {
         >
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-12 sm:mb-16 md:mb-20 tracking-tighter">
-              <span className="text-zinc-700 font-mono">04.</span> CONTACT
+              <span className="text-zinc-700 font-mono">05.</span> CONTACT
             </h2>
 
             <div className="grid md:grid-cols-2 gap-16">
