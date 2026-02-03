@@ -346,11 +346,23 @@ function App() {
 
   const experience = [
     {
+      role: "Software QA Engineer Intern",
+      org: "Deepiri AI",
+      date: "January 2026 – Present",
+      points: [
+        "Performed QA and feature validation across microservice-based systems in a small, collaborative AI R&D environment",
+        "Reviewed and tested pull requests using Git, GitHub, TypeScript, Node.js, and local dev environments to ensure reliability in early-stage services",
+        "Ran and debugged services locally, validating API interactions, authentication flows, and end-to-end behavior",
+        "Collaborated with engineers and researchers to reproduce bugs, clarify expected behavior, and verify fixes in real-world AI applications"
+      ]
+    },
+    {
       role: "Project Mentor",
       org: "Creation of Games Society (COGS)",
       date: "January 2026 – Present",
       points: [
         "Mentoring student teams on game architecture using Godot, Unity, and Unreal Engine",
+        "Taught beginner and intermediate programmers the basics of GDScript, C, C#, and C++.",
         "Streamlining project workflows by establishing structured debugging and version control practices",
         "Partnering with executive board to design technical workshops and incentives"
       ]
