@@ -346,6 +346,14 @@ function App() {
 
   const experience = [
     {
+      role: "Software Engineer Intern",
+      org: "ConsenTerra, Inc.",
+      date: "Incoming March 2026",
+      points: [
+        "Hopefully I do not forget to update this when it starts :)"
+      ]
+    },
+    {
       role: "Software QA Engineer Intern",
       org: "Deepiri AI",
       date: "January 2026 – Present",
