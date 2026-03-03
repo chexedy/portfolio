@@ -295,6 +295,22 @@ function App() {
     {
       role: "Software Engineer Intern",
       org: "ConsenTerra, Inc.",
+      date: "Incoming March 2026",
+      points: [
+        "Hopefully I do not forget to update this when it starts :)"
+      ]
+    },
+    {
+      role: "Software Engineer Intern",
+      org: "ConsenTerra, Inc.",
+      date: "Incoming March 2026",
+      points: [
+        "Hopefully I do not forget to update this when it starts :)"
+      ]
+    },
+    {
+      role: "Software Engineer Intern",
+      org: "ConsenTerra, Inc.",
       date: "March 2026 – Present",
       points: [
         "Developing AI-driven tools to simplify and summarize complex legal documents using NLP pipelines and cloud-based services."
