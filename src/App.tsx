@@ -295,22 +295,6 @@ function App() {
     {
       role: "Software Engineer Intern",
       org: "ConsenTerra, Inc.",
-      date: "Incoming March 2026",
-      points: [
-        "Hopefully I do not forget to update this when it starts :)"
-      ]
-    },
-    {
-      role: "Software Engineer Intern",
-      org: "ConsenTerra, Inc.",
-      date: "Incoming March 2026",
-      points: [
-        "Hopefully I do not forget to update this when it starts :)"
-      ]
-    },
-    {
-      role: "Software Engineer Intern",
-      org: "ConsenTerra, Inc.",
       date: "March 2026 – Present",
       points: [
         "Developing AI-driven tools to simplify and summarize complex legal documents using NLP pipelines and cloud-based services."
@@ -334,7 +318,7 @@ function App() {
         "Developed modular microservices in TypeScript and PostgreSQL to support AI-driven media ingestion and automation workflows.",
         "Designed and optimized REST APIs for distributed AI systems, improving cross-service communication efficiency by 30%.",
         "Containerized backend services with Docker and supported scalable cloud deployments for high-performance AI workloads.",
-        "Contributed to generative AI productivity tools by integrating NLP pipelines into production - ready microservice architecture."
+        "Contributed to generative AI productivity tools by integrating NLP pipelines into production-ready microservice architecture."
       ]
     }
   ];
