@@ -48,8 +48,6 @@ function App() {
   const [gamesVisible, setGamesVisible] = useState(false);
   const [contactVisible, setContactVisible] = useState(false);
 
-  const hasLogged = useRef(false);
-
   useEffect(() => {
     sound1Ref.current = new Audio('sounds/bahaha.mp3');
     sound2Ref.current = new Audio('sounds/alright.mp3');
@@ -119,58 +117,6 @@ function App() {
       return () => clearTimeout(timer);
     }
   }, [funkyPhase, showFunky]);
-
-  useEffect(() => {
-    if (hasLogged.current) return;
-    hasLogged.current = true;
-
-    const asciiArt = `
-  Here's Funky Kong as a gift for inspecting my code:
-
-                                                        :=**%%%%%%###%%%%%
-                                                         :=+**######%%%%%%
-                                                          ::-=++*****#%%%%
-                                                            :::-==++****#*
-                                  :=**+::::::::              +:::-==+++**+
-                             ::::%@@@@@*:::::::::=+          ::::-=++++=++
-                           ::::::::-::::::::**=:::-==          :::---=====
-                          -@@-::::::::::::=#****=:::::         =:::--=====
-                         *@@*:=%@@@@%#*+++++=====-:::::         :::-======
-                       ::##::%@@@@@@@@@@%*+++========+##*=      ::--======
-                       ::::=*%+*%@@@@@@@@@@%%#**+++*#***+=:      ::-======
-                      =:-=+++%%+-+#%%@@@@@%#*====+*****==::      :::-=====
-            =:::::%@@@=====--::-=*%@@@@@@@#*+==-:::::....:-      ..::----=
-         =@@@@%::::::::=::::::-+*%@@@@@@@%**+===:::::... :.       :.:::::-
-       :::%%%%%%-:::%@@%=::::-+##@@@@@@@%#**++=-:::::......:    ==========
-         ::%@@@+:::#*+=#@#::.=##%@@@@@@%%#@@@**%*%@@@%*: ..=  -==++++=+++=
-            :::::::#*+==%@%==-=%@@@@@@%%@@@@@@@%#%%@*===...======+++++++++
-                   %*+++=%@*===-:=%%@@@@@@@@@@@@%%%%#****:.==++++++++++++=
-                   *%**==+%%=--*%%@@@@@@@@@@@@@@@%%%%#****+===+=++=++==+=+
-                    +*##**#%##%%@@@@@@@@@@@@@@@@@%%%%##***+=-=============
-               #%#======#@@@@@%%%%%@@@@@@@@@@@@%%%%%%#*****+-::-==========
-   *+++==+=+==%%@@%+=++#%%%%%%%%%@@@@@@%%%%#****++++++++++++=-::--========
-==+++++++++++==%@@@@==*###**%%%%%#*+=--==========+=====---:::::::-----====
-++++++++++++++=+@@@@@=**##*--:--+*+%@%*@@@#@@@%%%%*=====--:-:.::::::------
-+++++++++++++++=%@@@@***#%%*#**=+**%%%%@@@@@@@%@@@@##%*=:-:--:::::::::::::
-+++++++++++++++=+@@@@%**%%%@%%@%@@@@@@@@@%@@%%%%%%%#%%%**=::::::::::::::::
-+++++++++++++++==%@@@@***%%%#**##%%%%%%%%%%%%%%%%%%%%#***++=-::.:::::::::.
-+++++++++++=+++==*@@@@%++**###**+++++++++======--------:::::::::..::.:::::
-+++++++=+++=======@@@@@*=++************+++===-::::::::::-:-----::.....::::
-=================:@@@@@@#-==+++*********++++++++===--:-::----==-:....::::
-=========---------%@@@@@@%=:-===================--::::::-:-:====-....:
-----::::::::::::=+%@@@@@@@@%=:.::::---------:::::::::::-:--=====-:..
-:::::::::::::::-*%%@@@@@@@@@@#==:....:::::::::::::::::--=========-::
------:::::::.::=%#@@@@@@@@@@@@@*====:::::::::::::::-=============-:
-======-::::...:+**@@@@@@@@@@@@@@@*===============================--
-====---:::.::.:-=%@@@@@@@@@@@@@@@@%+=============================--
-===--:::::..::.:*#%@@@@@@@@@@@@@@@@@#+===========================--
--:::::::::..::::-+*#%@@@@@@@@@@@@@@@@%*========-================---
-::::..::   :::::::=+*#%%%@@@@%%%%%##**+==---===-::----------=----:
-===:::      :::::::::-==+****++====-------=======-::::-:-----::-
-  `;
-
-    console.log('%c' + asciiArt, 'font-family: monospace; font-size: 12px;');
-  }, []);
 
   const smoothScrollTo = (elementRef: React.RefObject<HTMLElement | null>) => {
     elementRef.current?.scrollIntoView({
@@ -341,30 +287,38 @@ function App() {
 
   const skills = {
     languages: ["Java", "Python", "C", "C++", "Lua", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"],
-    frameworks: ["React", "Node.js", "Git", "AWS", "Cloudflare Workers", "REST APIs"],
+    frameworks: ["React", "Node.js", "Next.js", "Django", "GitHub", "Docker", "AWS", "Cloudflare", "MongoDB", "Linux"],
+    concepts: ["Full-Stack Development", "System Design", "Databases", "Machine Learning"]
   };
 
   const experience = [
     {
-      role: "Software QA Engineer Intern",
-      org: "Deepiri AI",
-      date: "January 2026 – Present",
+      role: "Software Engineer Intern",
+      org: "ConsenTerra, Inc.",
+      date: "March 2026 – Present",
       points: [
-        "Performed QA and feature validation across microservice-based systems in a small, collaborative AI R&D environment",
-        "Reviewed and tested pull requests using Git, GitHub, TypeScript, Node.js, and local dev environments to ensure reliability in early-stage services",
-        "Ran and debugged services locally, validating API interactions, authentication flows, and end-to-end behavior",
-        "Collaborated with engineers and researchers to reproduce bugs, clarify expected behavior, and verify fixes in real-world AI applications"
+        "Developing AI-driven tools to simplify and summarize complex legal documents using NLP pipelines and cloud-based services."
       ]
     },
     {
-      role: "Project Mentor",
+      role: "Software Engineering Teaching Assistant",
       org: "Creation of Games Society (COGS)",
       date: "January 2026 – Present",
       points: [
-        "Mentoring student teams on game architecture using Godot, Unity, and Unreal Engine",
-        "Taught beginner and intermediate programmers the basics of GDScript, C, C#, and C++.",
-        "Streamlining project workflows by establishing structured debugging and version control practices",
-        "Partnering with executive board to design technical workshops and incentives"
+        "Mentoring 3–4 student developers through early-stage game projects, guiding architecture decisions and core gameplay system design.",
+        "Teaching beginner and intermediate programmers the fundamentals of GDScript, C, C#, and C++, with a focus on debugging and problem decomposition.",
+        "Establishing development workflows and version control practices that improved project organization and early development velocity."
+      ]
+    },
+    {
+      role: "Software Engineer Intern",
+      org: "Deepiri AI",
+      date: "January – March 2026",
+      points: [
+        "Developed modular microservices in TypeScript and PostgreSQL to support AI-driven media ingestion and automation workflows.",
+        "Designed and optimized REST APIs for distributed AI systems, improving cross-service communication efficiency by 30%.",
+        "Containerized backend services with Docker and supported scalable cloud deployments for high-performance AI workloads.",
+        "Contributed to generative AI productivity tools by integrating NLP pipelines into production - ready microservice architecture."
       ]
     }
   ];
@@ -690,10 +644,16 @@ function App() {
             </div>
             <div className={`flex flex-col sm:flex-row gap-4 sm:gap-8 transition-opacity duration-500 ${showButtons ? 'opacity-100' : 'opacity-0'}`}>
               <button
+                onClick={() => smoothScrollTo(experienceRef)}
+                className="px-8 sm:px-10 py-4 sm:py-5 bg-zinc-100 text-black hover:bg-zinc-300 transition-all duration-300 uppercase tracking-widest text-sm font-bold shadow-2xl text-center cursor-pointer"
+              >
+                Experience
+              </button>
+              <button
                 onClick={() => smoothScrollTo(projectsRef)}
                 className="px-8 sm:px-10 py-4 sm:py-5 bg-zinc-100 text-black hover:bg-zinc-300 transition-all duration-300 uppercase tracking-widest text-sm font-bold shadow-2xl text-center cursor-pointer"
               >
-                View Projects
+                Projects
               </button>
               <button
                 onClick={() => smoothScrollTo(contactRef)}
@@ -761,6 +721,20 @@ function App() {
                     <h4 className="text-sm font-semibold text-zinc-500 mb-3 tracking-wider">FRAMEWORKS / TOOLS</h4>
                     <div className="flex flex-wrap gap-3">
                       {skills.frameworks.map((skill) => (
+                        <span
+                          key={skill}
+                          className="px-4 py-2 bg-zinc-900/80 border border-zinc-700 hover:border-zinc-400 hover:bg-zinc-800/80 transition-all text-sm font-mono backdrop-blur-sm"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="text-sm font-semibold text-zinc-500 mb-3 tracking-wider">CONCEPTS</h4>
+                    <div className="flex flex-wrap gap-3">
+                      {skills.concepts.map((skill) => (
                         <span
                           key={skill}
                           className="px-4 py-2 bg-zinc-900/80 border border-zinc-700 hover:border-zinc-400 hover:bg-zinc-800/80 transition-all text-sm font-mono backdrop-blur-sm"
