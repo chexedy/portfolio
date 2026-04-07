@@ -308,9 +308,9 @@ function App() {
       ]
     },
     {
-      role: "Software Engineer Intern",
-      org: "Deepiri AI",
-      date: "January – March 2026",
+      role: "Project Mentor",
+      org: "Creation of Games Society (COGS)",
+      date: "January 2026 – Present",
       points: [
         "Mentoring student teams on game architecture using Godot, Unity, and Unreal Engine",
         "Taught beginner and intermediate programmers the basics of GDScript, C, C#, and C++",
