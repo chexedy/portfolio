@@ -311,6 +311,13 @@ function App() {
       link: "https://transit.chexedy.com/"
     },
     {
+      title: "FoodLoop",
+      description: "Winner of the Climate Track @ the Rutgers MTC Hackathon. A real-time food redistribution and prevention platform that ensures surplus food is used at its highest value before becoming waste.",
+      tech: ["TypeScript", "React", "Python"],
+      image: "projects/foodloop.png",
+      link: "https://foodloop-foodloop.vercel.app/"
+    },
+    {
       title: "RU Water Fountains",
       description: "A map that displays water fountains across the Rutgers-New Brunswick campus. Rutgers students can use their ScarletMail to submit a location and description of a fountain that does not appear on the map, and the request will be reviewed and approved by a site admin. Existing foundations can be edited if they are inaccurate.",
       tech: ["TypeScript", "React", "SQL", "Cloudflare"],
@@ -346,22 +353,11 @@ function App() {
 
   const experience = [
     {
-      role: "Software Engineer Intern",
-      org: "ConsenTerra, Inc.",
-      date: "Incoming March 2026",
+      role: "IT & AI Automation Intern",
+      org: "Rutgers MSA & ICNA-NJ",
+      date: "April 2026 – Present",
       points: [
-        "Hopefully I do not forget to update this when it starts :)"
-      ]
-    },
-    {
-      role: "Software QA Engineer Intern",
-      org: "Deepiri AI",
-      date: "January 2026 – Present",
-      points: [
-        "Performed QA and feature validation across microservice-based systems in a small, collaborative AI R&D environment",
-        "Reviewed and tested pull requests using Git, GitHub, TypeScript, Node.js, and local dev environments to ensure reliability in early-stage services",
-        "Ran and debugged services locally, validating API interactions, authentication flows, and end-to-end behavior",
-        "Collaborated with engineers and researchers to reproduce bugs, clarify expected behavior, and verify fixes in real-world AI applications"
+        "Developing AI-powered workflows to scale Islamic awareness and community outreach on social media platforms during the 2026 FIFA World Cup"
       ]
     },
     {
@@ -370,7 +366,7 @@ function App() {
       date: "January 2026 – Present",
       points: [
         "Mentoring student teams on game architecture using Godot, Unity, and Unreal Engine",
-        "Taught beginner and intermediate programmers the basics of GDScript, C, C#, and C++.",
+        "Taught beginner and intermediate programmers the basics of GDScript, C, C#, and C++",
         "Streamlining project workflows by establishing structured debugging and version control practices",
         "Partnering with executive board to design technical workshops and incentives"
       ]
