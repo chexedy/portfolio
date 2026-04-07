@@ -48,8 +48,6 @@ function App() {
   const [gamesVisible, setGamesVisible] = useState(false);
   const [contactVisible, setContactVisible] = useState(false);
 
-  const hasLogged = useRef(false);
-
   useEffect(() => {
     sound1Ref.current = new Audio('sounds/bahaha.mp3');
     sound2Ref.current = new Audio('sounds/alright.mp3');
@@ -119,58 +117,6 @@ function App() {
       return () => clearTimeout(timer);
     }
   }, [funkyPhase, showFunky]);
-
-  useEffect(() => {
-    if (hasLogged.current) return;
-    hasLogged.current = true;
-
-    const asciiArt = `
-  Here's Funky Kong as a gift for inspecting my code:
-
-                                                        :=**%%%%%%###%%%%%
-                                                         :=+**######%%%%%%
-                                                          ::-=++*****#%%%%
-                                                            :::-==++****#*
-                                  :=**+::::::::              +:::-==+++**+
-                             ::::%@@@@@*:::::::::=+          ::::-=++++=++
-                           ::::::::-::::::::**=:::-==          :::---=====
-                          -@@-::::::::::::=#****=:::::         =:::--=====
-                         *@@*:=%@@@@%#*+++++=====-:::::         :::-======
-                       ::##::%@@@@@@@@@@%*+++========+##*=      ::--======
-                       ::::=*%+*%@@@@@@@@@@%%#**+++*#***+=:      ::-======
-                      =:-=+++%%+-+#%%@@@@@%#*====+*****==::      :::-=====
-            =:::::%@@@=====--::-=*%@@@@@@@#*+==-:::::....:-      ..::----=
-         =@@@@%::::::::=::::::-+*%@@@@@@@%**+===:::::... :.       :.:::::-
-       :::%%%%%%-:::%@@%=::::-+##@@@@@@@%#**++=-:::::......:    ==========
-         ::%@@@+:::#*+=#@#::.=##%@@@@@@%%#@@@**%*%@@@%*: ..=  -==++++=+++=
-            :::::::#*+==%@%==-=%@@@@@@%%@@@@@@@%#%%@*===...======+++++++++
-                   %*+++=%@*===-:=%%@@@@@@@@@@@@%%%%#****:.==++++++++++++=
-                   *%**==+%%=--*%%@@@@@@@@@@@@@@@%%%%#****+===+=++=++==+=+
-                    +*##**#%##%%@@@@@@@@@@@@@@@@@%%%%##***+=-=============
-               #%#======#@@@@@%%%%%@@@@@@@@@@@@%%%%%%#*****+-::-==========
-   *+++==+=+==%%@@%+=++#%%%%%%%%%@@@@@@%%%%#****++++++++++++=-::--========
-==+++++++++++==%@@@@==*###**%%%%%#*+=--==========+=====---:::::::-----====
-++++++++++++++=+@@@@@=**##*--:--+*+%@%*@@@#@@@%%%%*=====--:-:.::::::------
-+++++++++++++++=%@@@@***#%%*#**=+**%%%%@@@@@@@%@@@@##%*=:-:--:::::::::::::
-+++++++++++++++=+@@@@%**%%%@%%@%@@@@@@@@@%@@%%%%%%%#%%%**=::::::::::::::::
-+++++++++++++++==%@@@@***%%%#**##%%%%%%%%%%%%%%%%%%%%#***++=-::.:::::::::.
-+++++++++++=+++==*@@@@%++**###**+++++++++======--------:::::::::..::.:::::
-+++++++=+++=======@@@@@*=++************+++===-::::::::::-:-----::.....::::
-=================:@@@@@@#-==+++*********++++++++===--:-::----==-:....::::
-=========---------%@@@@@@%=:-===================--::::::-:-:====-....:
-----::::::::::::=+%@@@@@@@@%=:.::::---------:::::::::::-:--=====-:..
-:::::::::::::::-*%%@@@@@@@@@@#==:....:::::::::::::::::--=========-::
------:::::::.::=%#@@@@@@@@@@@@@*====:::::::::::::::-=============-:
-======-::::...:+**@@@@@@@@@@@@@@@*===============================--
-====---:::.::.:-=%@@@@@@@@@@@@@@@@%+=============================--
-===--:::::..::.:*#%@@@@@@@@@@@@@@@@@#+===========================--
--:::::::::..::::-+*#%@@@@@@@@@@@@@@@@%*========-================---
-::::..::   :::::::=+*#%%%@@@@%%%%%##**+==---===-::----------=----:
-===:::      :::::::::-==+****++====-------=======-::::-:-----::-
-  `;
-
-    console.log('%c' + asciiArt, 'font-family: monospace; font-size: 12px;');
-  }, []);
 
   const smoothScrollTo = (elementRef: React.RefObject<HTMLElement | null>) => {
     elementRef.current?.scrollIntoView({
@@ -348,7 +294,8 @@ function App() {
 
   const skills = {
     languages: ["Java", "Python", "C", "C++", "Lua", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"],
-    frameworks: ["React", "Node.js", "Git", "AWS", "Cloudflare Workers", "REST APIs"],
+    frameworks: ["React", "Node.js", "Next.js", "Django", "GitHub", "Docker", "AWS", "Cloudflare", "MongoDB", "Linux"],
+    concepts: ["Full-Stack Development", "System Design", "Databases", "Machine Learning"]
   };
 
   const experience = [
@@ -361,9 +308,9 @@ function App() {
       ]
     },
     {
-      role: "Project Mentor",
-      org: "Creation of Games Society (COGS)",
-      date: "January 2026 – Present",
+      role: "Software Engineer Intern",
+      org: "Deepiri AI",
+      date: "January – March 2026",
       points: [
         "Mentoring student teams on game architecture using Godot, Unity, and Unreal Engine",
         "Taught beginner and intermediate programmers the basics of GDScript, C, C#, and C++",
@@ -694,10 +641,16 @@ function App() {
             </div>
             <div className={`flex flex-col sm:flex-row gap-4 sm:gap-8 transition-opacity duration-500 ${showButtons ? 'opacity-100' : 'opacity-0'}`}>
               <button
+                onClick={() => smoothScrollTo(experienceRef)}
+                className="px-8 sm:px-10 py-4 sm:py-5 bg-zinc-100 text-black hover:bg-zinc-300 transition-all duration-300 uppercase tracking-widest text-sm font-bold shadow-2xl text-center cursor-pointer"
+              >
+                Experience
+              </button>
+              <button
                 onClick={() => smoothScrollTo(projectsRef)}
                 className="px-8 sm:px-10 py-4 sm:py-5 bg-zinc-100 text-black hover:bg-zinc-300 transition-all duration-300 uppercase tracking-widest text-sm font-bold shadow-2xl text-center cursor-pointer"
               >
-                View Projects
+                Projects
               </button>
               <button
                 onClick={() => smoothScrollTo(contactRef)}
@@ -765,6 +718,20 @@ function App() {
                     <h4 className="text-sm font-semibold text-zinc-500 mb-3 tracking-wider">FRAMEWORKS / TOOLS</h4>
                     <div className="flex flex-wrap gap-3">
                       {skills.frameworks.map((skill) => (
+                        <span
+                          key={skill}
+                          className="px-4 py-2 bg-zinc-900/80 border border-zinc-700 hover:border-zinc-400 hover:bg-zinc-800/80 transition-all text-sm font-mono backdrop-blur-sm"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="text-sm font-semibold text-zinc-500 mb-3 tracking-wider">CONCEPTS</h4>
+                    <div className="flex flex-wrap gap-3">
+                      {skills.concepts.map((skill) => (
                         <span
                           key={skill}
                           className="px-4 py-2 bg-zinc-900/80 border border-zinc-700 hover:border-zinc-400 hover:bg-zinc-800/80 transition-all text-sm font-mono backdrop-blur-sm"
