@@ -270,13 +270,13 @@ function App() {
       image: "projects/fountains.png",
       link: "https://fountains.chexedy.com/"
     },
-    {
-      title: "Money In DC",
-      description: "WIP - A visual and educational overview of campaign finance and lobbying activity. By bridging official records with a transparent classification engine, it aims to make complex financial data accessible and understandable to everyone.",
-      tech: ["Python", "TypeScript", "React", "SQL"],
-      image: "projects/moneyindc.png",
-      link: "https://moneyindc.chexedy.com/"
-    },
+    // {
+    //   title: "Money In DC",
+    //   description: "WIP - A visual and educational overview of campaign finance and lobbying activity. By bridging official records with a transparent classification engine, it aims to make complex financial data accessible and understandable to everyone.",
+    //   tech: ["Python", "TypeScript", "React", "SQL"],
+    //   image: "projects/moneyindc.png",
+    //   link: "https://moneyindc.chexedy.com/"
+    // },
   ];
 
   const games = [
@@ -289,6 +289,17 @@ function App() {
       image: "games/fishingfrenzy.png",
       link: "https://chexedy.itch.io/fishing-frenzy",
       progress: 100
+    },
+    {
+
+      title: "The Dead Shall Feast",
+      description: "A visual novel on eight people who are trapped in Hell and compete for a chance to live again. I did the coding with a few others and helped implement the UI. As of now only one ending is done, the rest are in development.",
+      status: "WIP",
+      tech: ["RenPy", "Python", "PhotoShop"],
+      features: ["2D", "Visual Novel", "Choose Your Own Adventure"],
+      image: "games/tdsf.png",
+      link: "https://kapeepa.itch.io/the-dead-shall-feast",
+      progress: 30
     }
   ];
 
@@ -852,7 +863,7 @@ function App() {
             </h2>
 
             <p className="bg-black p-3 rounded-lg text-zinc-400 text-lg md:text-xl leading-relaxed font-light mb-12">
-              I should work on these more...
+              I love working on games! Unfortunately, the industry is cooked : /
             </p>
 
             <div className="grid lg:grid-cols-2 gap-8">
