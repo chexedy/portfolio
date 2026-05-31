@@ -248,6 +248,33 @@ function App() {
     return () => window.removeEventListener('scroll', handleScrollAnimation);
   }, []);
 
+  const experience = [
+    {
+      role: "Software Engineer Intern",
+      org: "Auria Space",
+      date: "June 2026 – Present",
+      points: [
+        "Working on a scheduling software used by satellites to ensure proper accuracy and safety during critical missions"
+      ]
+    },
+    {
+      role: "IT & AI Automation Intern",
+      org: "Rutgers MSA & ICNA-NJ",
+      date: "April 2026 – June 2026",
+      points: [
+        "Developing AI-powered workflows to scale Islamic awareness and community outreach on social media platforms during the 2026 FIFA World Cup"
+      ]
+    },
+    {
+      role: "Project Mentor",
+      org: "Creation of Games Society (COGS)",
+      date: "January 2026 – Present",
+      points: [
+        "Mentoring 3–4 student developers through early-stage game projects, guiding architecture decisions and core gameplay system design"
+      ]
+    }
+  ];
+
   const projects = [
     {
       title: "Where Is NJ Transit?",
@@ -308,28 +335,6 @@ function App() {
     frameworks: ["React", "Node.js", "Next.js", "Django", "GitHub", "Docker", "AWS", "Cloudflare", "MongoDB", "Linux"],
     concepts: ["Full-Stack Development", "System Design", "Databases", "Machine Learning"]
   };
-
-  const experience = [
-    {
-      role: "IT & AI Automation Intern",
-      org: "Rutgers MSA & ICNA-NJ",
-      date: "April 2026 – Present",
-      points: [
-        "Developing AI-powered workflows to scale Islamic awareness and community outreach on social media platforms during the 2026 FIFA World Cup"
-      ]
-    },
-    {
-      role: "Project Mentor",
-      org: "Creation of Games Society (COGS)",
-      date: "January 2026 – Present",
-      points: [
-        "Mentoring student teams on game architecture using Godot, Unity, and Unreal Engine",
-        "Taught beginner and intermediate programmers the basics of GDScript, C, C#, and C++",
-        "Streamlining project workflows by establishing structured debugging and version control practices",
-        "Partnering with executive board to design technical workshops and incentives"
-      ]
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-black text-zinc-100 font-sans overflow-x-hidden">
