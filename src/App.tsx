@@ -254,7 +254,7 @@ function App() {
       org: "Auria Space",
       date: "June 2026 – Present",
       points: [
-        "Working on a scheduling software used by satellites to ensure proper accuracy and safety during critical missions"
+        "Working on scheduling software used by satellites to ensure proper accuracy and safety during critical missions"
       ]
     },
     {
@@ -1035,7 +1035,7 @@ function App() {
           </div>
         </section>
 
-        <section className="py-16 px-6 bg-black/40 backdrop-blur-sm">
+        {/* <section className="py-16 px-6 bg-black/40 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto text-center">
             <p className="text-zinc-600 text-sm font-mono italic mb-2">
               psst. there's an easter egg hidden, and to view it you must type out the answer to this question:
@@ -1044,7 +1044,7 @@ function App() {
               who is the greatest playable mario kart character?
             </p>
           </div>
-        </section>
+        </section> */}
 
         <footer className="border-t border-zinc-900 py-12 px-6 text-center text-zinc-700 bg-black/80 backdrop-blur-sm">
           <p className="text-sm font-mono tracking-wider">© 2026 chexedy incorporated (Real) | Built with React, TypeScript & Tailwind CSS</p>
