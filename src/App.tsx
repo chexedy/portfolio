@@ -258,19 +258,19 @@ function App() {
       ]
     },
     {
-      role: "IT & AI Automation Intern",
-      org: "Rutgers MSA & ICNA-NJ",
-      date: "April 2026 – June 2026",
-      points: [
-        "Developing AI-powered workflows to scale Islamic awareness and community outreach on social media platforms during the 2026 FIFA World Cup"
-      ]
-    },
-    {
       role: "Project Mentor",
       org: "Creation of Games Society (COGS)",
       date: "January 2026 – Present",
       points: [
         "Mentoring 3–4 student developers through early-stage game projects, guiding architecture decisions and core gameplay system design"
+      ]
+    },
+    {
+      role: "IT & AI Automation Extern",
+      org: "Rutgers MSA & ICNA-NJ",
+      date: "April 2026 – June 2026",
+      points: [
+        "Developing AI-powered workflows to scale Islamic awareness and community outreach on social media platforms during the 2026 FIFA World Cup"
       ]
     }
   ];
@@ -331,7 +331,7 @@ function App() {
   ];
 
   const skills = {
-    languages: ["Java", "Python", "C", "C++", "Lua", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"],
+    languages: ["Java", "Python", "C", "C++", "C#", "Lua", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"],
     frameworks: ["React", "Node.js", "Next.js", "Django", "GitHub", "Docker", "AWS", "Cloudflare", "MongoDB", "Linux"],
     concepts: ["Full-Stack Development", "System Design", "Databases", "Machine Learning"]
   };
@@ -708,7 +708,7 @@ function App() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Briefcase className="w-6 h-6 text-zinc-600" />
-                    <span className="text-zinc-500 font-mono text-sm">Open to Internships & Opportunities</span>
+                    <span className="text-zinc-500 font-mono text-sm">Software Engineer Intern at Auria Space</span>
                   </div>
                 </div>
               </div>
@@ -867,9 +867,9 @@ function App() {
               <span className="text-zinc-700 font-mono">04.</span> GAMES
             </h2>
 
-            <p className="bg-black p-3 rounded-lg text-zinc-400 text-lg md:text-xl leading-relaxed font-light mb-12">
+            {/* <p className="bg-black p-3 rounded-lg text-zinc-400 text-lg md:text-xl leading-relaxed font-light mb-12">
               I love working on games! Unfortunately, the industry is cooked : /
-            </p>
+            </p> */}
 
             <div className="grid lg:grid-cols-2 gap-8">
               {games.map((game, idx) => (
