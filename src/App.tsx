@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Github, Linkedin, MessageSquare, ExternalLink, ChevronDown, Code2, University, Briefcase, Gamepad2, Trophy, Zap } from 'lucide-react';
+import { ExternalLink, ChevronDown, Code2, University, Briefcase, Trophy, Zap } from 'lucide-react';
+import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 
 /* You better not be looking for answers here... */
 
@@ -250,24 +251,51 @@ function App() {
 
   const experience = [
     {
+      role: "Artificial Intelligence Researcher",
+      org: "Aresty Research Center",
+      location: "New Brunswick, NJ",
+      date: "Incoming Fall 2026",
+      points: [
+        "Researching AI-assisted video game development, player experience, and community perceptions of generative AI with Professor Robert Wolfe"
+      ]
+    },
+    {
       role: "Software Engineer Intern",
       org: "Auria Space",
+      location: "Colorado Springs, CO",
       date: "June 2026 – Present",
       points: [
-        "Working on scheduling software used by satellites to ensure proper accuracy and safety during critical missions"
+        "Develop full-stack features and resolve defects for Astro Scheduler, a mission scheduling platform supporting satellite operations and rapid planning for space systems",
+        "Implement 10 + frontend enhancements using React to improve usability and workflow efficiency for mission planning interfaces, leading to a 10% decrease in site lag",
+        "Build and maintain 15+ backend functions in C#, contributing to application logic, API integration, and bug fixes across multiple services while improving response time by 15%"
       ]
     },
     {
       role: "Project Mentor",
       org: "Creation of Games Society (COGS)",
+      location: "New Brunswick, NJ",
       date: "January 2026 – Present",
       points: [
-        "Mentoring 3–4 student developers through early-stage game projects, guiding architecture decisions and core gameplay system design"
+        "Mentoring 6-7 student developers through early-stage game projects, guiding architecture decisions and core gameplay system design",
+        "Teaching beginner and intermediate programmers the fundamentals of GDScript, C, C#, and C++, with a focus on debugging and problem decomposition",
+        "Establishing development workflows and version control practices that have improved project organization and early development velocity"
+      ]
+    },
+    {
+      role: "Treasurer and Server Staff",
+      org: "Rutgers Minecraft Club",
+      location: "New Brunswick, NJ",
+      date: "October 2025 – Present",
+      points: [
+        "Managing the operating budget for a 1,000+ member Rutgers Minecraft community, overseeing expenditures for server hosting, plugins, domains, and other infrastructure services",
+        "Researched and evaluated hosting providers, negotiating pricing and service plans while staying within budget",
+        "Oversaw fundraising efforts and collaborated with club leadership to allocate funds, maintain financial records, and ensure the long- term sustainability of club operations"
       ]
     },
     {
       role: "IT & AI Automation Extern",
       org: "Rutgers MSA & ICNA-NJ",
+      location: "Somerset, NJ",
       date: "April 2026 – June 2026",
       points: [
         "Developing AI-powered workflows to scale Islamic awareness and community outreach on social media platforms during the 2026 FIFA World Cup"
@@ -281,21 +309,21 @@ function App() {
       description: "A live NJ Transit rail map with real-time location visualization and station departure information. Automated 1,440+ daily data ingestions maintaining 60-second location accuracy across the entire rail network.",
       tech: ["JavaScript", "Cloudflare", "SQL", "REST APIs"],
       image: "projects/transit.png",
-      link: "https://transit.chexedy.com/"
+      link: "https://github.com/chexedy/whereisnjtransit"
     },
     {
       title: "FoodLoop",
       description: "Winner of the Climate Track @ the Rutgers MTC Hackathon. A real-time food redistribution and prevention platform that ensures surplus food is used at its highest value before becoming waste.",
       tech: ["TypeScript", "React", "Python"],
       image: "projects/foodloop.png",
-      link: "https://foodloop-foodloop.vercel.app/"
+      link: "https://github.com/SaimM2007/Foodloop"
     },
     {
       title: "RU Water Fountains",
       description: "A map that displays water fountains across the Rutgers-New Brunswick campus. Rutgers students can use their ScarletMail to submit a location and description of a fountain that does not appear on the map, and the request will be reviewed and approved by a site admin. Existing foundations can be edited if they are inaccurate.",
       tech: ["TypeScript", "React", "SQL", "Cloudflare"],
       image: "projects/fountains.png",
-      link: "https://fountains.chexedy.com/"
+      link: "https://github.com/chexedy/ruwaterfountains"
     },
     // {
     //   title: "Money In DC",
@@ -784,13 +812,15 @@ function App() {
                     <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 text-zinc-500">
                       <span className="font-semibold">{exp.org}</span>
                       <span className="hidden md:block">•</span>
-                      <span className="text-sm font-mono">{exp.date}</span>
+                      <span className="font-semibold">{exp.location}</span>
+                      <span className="hidden md:block">•</span>
+                      <span className="font-semibold">{exp.date}</span>
                     </div>
                   </div>
                   <ul className="space-y-3">
                     {exp.points.map((point, pidx) => (
                       <li key={pidx} className="text-zinc-400 leading-relaxed flex gap-3">
-                        <span className="text-zinc-700 mt-1.5">▹</span>
+                        <span className="text-zinc-400">▹</span>
                         <span>{point}</span>
                       </li>
                     ))}
@@ -994,22 +1024,22 @@ function App() {
               <div className="space-y-6">
                 {[
                   {
-                    Icon: Linkedin,
+                    Icon: FiLinkedin,
                     label: 'LinkedIn',
                     value: 'linkedin.com/in/ayaan7m',
                     href: 'https://linkedin.com/in/ayaan7m',
                   },
                   {
-                    Icon: Github,
+                    Icon: FiGithub,
                     label: 'GitHub',
                     value: 'github.com/chexedy',
                     href: 'https://github.com/chexedy',
                   },
                   {
-                    Icon: MessageSquare,
-                    label: 'Discord',
-                    value: 'discord.com/users/chexedy',
-                    href: 'https://discord.com/users/1089029798745079918',
+                    Icon: FiInstagram,
+                    label: 'Instagram',
+                    value: 'instagram.com/ayaan7m',
+                    href: 'https://instagram.com/ayaan7m',
                   }
                 ].map(({ Icon, label, value, href }) => (
                   <a
