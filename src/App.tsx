@@ -254,20 +254,9 @@ function App() {
       role: "Artificial Intelligence Researcher",
       org: "Aresty Research Center",
       location: "New Brunswick, NJ",
-      date: "Incoming Fall 2026",
+      date: "September 2026 - Present",
       points: [
         "Researching AI-assisted video game development, player experience, and community perceptions of generative AI with Professor Robert Wolfe"
-      ]
-    },
-    {
-      role: "Software Engineer Intern",
-      org: "Auria Space",
-      location: "Colorado Springs, CO",
-      date: "June 2026 – Present",
-      points: [
-        "Develop full-stack features and resolve defects for Astro Scheduler, a mission scheduling platform supporting satellite operations and rapid planning for space systems",
-        "Implement 10 + frontend enhancements using React to improve usability and workflow efficiency for mission planning interfaces, leading to a 10% decrease in site lag",
-        "Build and maintain 15+ backend functions in C#, contributing to application logic, API integration, and bug fixes across multiple services while improving response time by 15%"
       ]
     },
     {
@@ -282,21 +271,32 @@ function App() {
       ]
     },
     {
-      role: "Treasurer and Server Staff",
+      role: "Treasurer and Board Member",
       org: "Rutgers Minecraft Club",
       location: "New Brunswick, NJ",
       date: "October 2025 – Present",
       points: [
         "Managing the operating budget for a 1,000+ member Rutgers Minecraft community, overseeing expenditures for server hosting, plugins, domains, and other infrastructure services",
         "Researched and evaluated hosting providers, negotiating pricing and service plans while staying within budget",
-        "Oversaw fundraising efforts and collaborated with club leadership to allocate funds, maintain financial records, and ensure the long- term sustainability of club operations"
+        "Oversaw fundraising efforts and collaborated with club leadership to allocate funds, maintain financial records, and ensure the long-term sustainability of club operations"
+      ]
+    },
+    {
+      role: "Software Engineer Intern",
+      org: "Auria Space",
+      location: "Colorado Springs, CO",
+      date: "June – August 2026",
+      points: [
+        "Develop full-stack features and resolve defects for Astro Scheduler, a mission scheduling platform supporting satellite operations and rapid planning for space systems",
+        "Implement 10 + frontend enhancements using React to improve usability and workflow efficiency for mission planning interfaces, leading to a 10% decrease in site lag",
+        "Build and maintain 15+ backend functions in C#, contributing to application logic, API integration, and bug fixes across multiple services while improving response time by 15%"
       ]
     },
     {
       role: "IT & AI Automation Extern",
       org: "Rutgers MSA & ICNA-NJ",
       location: "Somerset, NJ",
-      date: "April 2026 – June 2026",
+      date: "April – June 2026",
       points: [
         "Developing AI-powered workflows to scale Islamic awareness and community outreach on social media platforms during the 2026 FIFA World Cup"
       ]
@@ -337,7 +337,7 @@ function App() {
   const games = [
     {
       title: "Fishing Frenzy",
-      description: "A fast-paced two-player fishing battle where competitors race against a 60-second clock to catch the most fish. Originally developed for Rutgers COGS as a 2-4 player controller-based game, this custom version features has two-player gameplay with keyboard controls for head-to-head action.",
+      description: "A fast-paced fishing battle where competitors race against a 60-second clock to catch the most fish. Originally developed for Rutgers COGS as a 2-4 player controller-based game, this custom version features has two-player gameplay with keyboard controls for head-to-head action.",
       status: "Complete",
       tech: ["Godot Engine", "GDScript", "Aseprite"],
       features: ["2D", "Action", "Two-Player Competitive", "Local Multiplayer"],
@@ -360,8 +360,8 @@ function App() {
 
   const skills = {
     languages: ["Java", "Python", "C", "C++", "C#", "Lua", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"],
-    frameworks: ["React", "Node.js", "Next.js", "Django", "GitHub", "Docker", "AWS", "Cloudflare", "MongoDB", "Linux"],
-    concepts: ["Full-Stack Development", "System Design", "Databases", "Machine Learning"]
+    frameworks: ["React", "Node.js", "Next.js", "Django", "GitHub", "GitLab", "Docker", "AWS", "Cloudflare", "MongoDB", "Linux"],
+    concepts: ["Full-Stack Development", "Artificial Intelligence", "System Design", "Databases", "Machine Learning", "Game Design"]
   };
 
   return (
@@ -732,11 +732,11 @@ function App() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Code2 className="w-6 h-6 text-zinc-600" />
-                    <span className="text-zinc-500 font-mono text-sm">Bachelor of Science in Computer Science</span>
+                    <span className="text-zinc-500 font-mono text-sm">Pursuing a Bachelor of Science in Computer Science</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Briefcase className="w-6 h-6 text-zinc-600" />
-                    <span className="text-zinc-500 font-mono text-sm">Software Engineer Intern at Auria Space</span>
+                    <span className="text-zinc-500 font-mono text-sm">Looking for Internships and Opportunities</span>
                   </div>
                 </div>
               </div>
@@ -1077,7 +1077,7 @@ function App() {
         </section> */}
 
         <footer className="border-t border-zinc-900 py-12 px-6 text-center text-zinc-700 bg-black/80 backdrop-blur-sm">
-          <p className="text-sm font-mono tracking-wider">© 2026 chexedy incorporated (Real) | Built with React, TypeScript & Tailwind CSS</p>
+          <p className="text-sm font-mono tracking-wider">© 2026 chexedy incorporated (real) | Built with React, TypeScript & Tailwind CSS</p>
         </footer>
 
         <button
