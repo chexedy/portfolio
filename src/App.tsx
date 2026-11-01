@@ -337,8 +337,8 @@ function App() {
   const games = [
     {
       title: "Fishing Frenzy",
-      description: "A fast-paced fishing battle where competitors race against a 60-second clock to catch the most fish. Originally developed for Rutgers COGS as a 2-4 player controller-based game, this custom version features has two-player gameplay with keyboard controls for head-to-head action.",
-      status: "Complete",
+      description: "A fast-paced fishing game where players compete to catch the most fish in 60 seconds. Originally developed as a 2–4 player controller-based game, this version uses keyboard controls for head-to-head matches.",
+      // status: "Complete",
       tech: ["Godot Engine", "GDScript", "Aseprite"],
       features: ["2D", "Action", "Two-Player Competitive", "Local Multiplayer"],
       image: "games/fishingfrenzy.png",
@@ -348,13 +348,13 @@ function App() {
     {
 
       title: "The Dead Shall Feast",
-      description: "A visual novel on eight people who are trapped in Hell and compete for a chance to live again. I did the coding with a few others and helped implement the UI. As of now only one ending is done, the rest are in development.",
-      status: "WIP",
+      description: "A visual novel about eight people trapped in Hell, competing for a chance at a second life. I worked on the game's code and helped implement the UI for one of its endings as part of the original dev team.",
+      // status: "Left Team",
       tech: ["RenPy", "Python", "PhotoShop"],
       features: ["2D", "Visual Novel", "Choose Your Own Adventure"],
       image: "games/tdsf.png",
       link: "https://kapeepa.itch.io/the-dead-shall-feast",
-      progress: 30
+      progress: 100
     }
   ];
 
@@ -935,10 +935,10 @@ function App() {
                         className="w-full h-full group-hover:scale-110 transition-all duration-700"
                       />
 
-                      <div className="absolute top-4 right-4 z-20 flex items-center gap-2 px-4 py-2 bg-black/80 backdrop-blur-md border border-zinc-700">
+                      {/* <div className="absolute top-4 right-4 z-20 flex items-center gap-2 px-4 py-2 bg-black/80 backdrop-blur-md border border-zinc-700">
                         <Zap className={`w-4 h-4 ${game.status === 'In Dev' ? 'text-yellow-500 animate-pulse' : 'text-yellow-500'}`} />
                         <span className="text-xs font-mono uppercase tracking-wider text-zinc-300">{game.status}</span>
-                      </div>
+                      </div> */}
                     </div>
 
                     <div className="p-8 relative z-20">
