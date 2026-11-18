@@ -251,12 +251,12 @@ function App() {
 
   const experience = [
     {
-      role: "Artificial Intelligence Researcher",
+      role: "NLP & Social Network Analysis Researcher",
       org: "Aresty Research Center",
-      location: "New Brunswick, NJ",
+      location: "Piscataway, NJ",
       date: "September 2026 - Present",
       points: [
-        "Researching AI-assisted video game development, player experience, and community perceptions of generative AI with Professor Robert Wolfe"
+        "Building an automated NLP and social network analysis pipeline in Python to model topics, map community interactions, and extract qualitative insights on assistive technology for aging parents with Professor Tawfiq Ammari"
       ]
     },
     {
@@ -360,8 +360,8 @@ function App() {
 
   const skills = {
     languages: ["Java", "Python", "C", "C++", "C#", "Lua", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"],
-    frameworks: ["React", "Node.js", "Next.js", "Django", "GitHub", "GitLab", "Docker", "AWS", "Cloudflare", "MongoDB", "Linux"],
-    concepts: ["Full-Stack Development", "Artificial Intelligence", "System Design", "Databases", "Machine Learning", "Game Design"]
+    frameworks: ["React", "Node.js", "Next.js", "Django", "GitHub", "GitLab", "Docker", "AWS", "Cloudflare", "MongoDB", "Linux", "BERTopic", "NetworkX"],
+    concepts: ["Full-Stack Development", "Artificial Intelligence", "System Design", "Data Engineering", "Machine Learning", "Game Design", "NLP"]
   };
 
   return (
